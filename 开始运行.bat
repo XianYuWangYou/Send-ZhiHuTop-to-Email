@@ -1,1 +1,1 @@
-python.exe main.py
+python.exe
