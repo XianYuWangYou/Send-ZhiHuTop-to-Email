@@ -2,7 +2,7 @@
 #爬取知乎热榜并发送邮箱
 #By:咸鱼网友
 
-'''请在第18、65行添加参数'''
+'''请在第18、64行添加参数'''
 
 import smtplib
 from email.mime.text import MIMEText
@@ -36,21 +36,20 @@ def getinfo():    #获取热榜内容
 
 '''生成标题并返回该标题'''
 def getname():
-    now = time.strftime("%Y-%m-%d %H:%M",time.localtime())
-    filename = "知乎热榜 {}".format(now) + " TOP" + str(num)
+    now = time.strftime("\n【%Y年%m月%d日 %H:%M】",time.localtime())
+    filename = "知乎热榜" + "TOP" + str(num) + now
     return filename
 
 '''生成网页并返回html文本'''
 def gethtml(num):
     html = PyQuery(filename="index.html", encoding="UTF-8")
     title,content,link = getinfo()
-    filename = getname()
-    html(".header h1").text(filename)   #添加标题
+    html("header h1").text(getname())   #添加标题
     article = html("body")    #添加内容
     for i in range(num):
-        h3 = ' <article><h3 class="title">%s</h3>' % "{}.{}".format(i+1,title[i])
+        h3 = '<article><h3 class="title">%s</h3><hr size="1px" color="#8b8b8b">' % "TOP{}:{}".format(i+1,title[i])
         p = '<p class="content">%s</p>' % content[i]
-        a = '<a href=%s target="_blank" class="link">查看详情→</a></article>' % link[i]
+        a = '<a href=%s target="_blank" class="link">查看知乎讨论</a></article>' % link[i]
         article.append("{}{}{}".format(h3,p,a))
     print("内容已填充至网页，html文本生成成功！")
     return html
