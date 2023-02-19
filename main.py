@@ -1,6 +1,8 @@
 # -*-coding=utf-8-*-
-#知乎热榜发送邮箱
+#爬取知乎热榜并发送邮箱
 #By:咸鱼网友
+
+'''请在第18、65行添加参数'''
 
 import smtplib
 from email.mime.text import MIMEText
